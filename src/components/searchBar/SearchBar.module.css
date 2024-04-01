@@ -1,0 +1,11 @@
+.search_bar_form {
+  display: flex;
+  justify-content: center;
+}
+.search_bar_header {
+  background-color: blue;
+  padding: 10px;
+}
+.search_bar_input {
+  width: 350px;
+}
