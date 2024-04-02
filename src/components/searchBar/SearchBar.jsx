@@ -11,17 +11,17 @@ const notify = () =>
     },
   });
 
-const SearchBar = ({ onSubmit }) => {
+const SearchBar = ({ onSearch }) => {
   const handleSubmit = evt => {
     evt.preventDefault();
     const form = evt.target;
     const image = form.elements.image.value;
     if (form.elements.image.value.trim() === '') {
       notify();
-
       return;
     }
-    onSubmit(image);
+    onSearch(image);
+    // console.log(image);
     form.reset();
   };
 
@@ -35,9 +35,11 @@ const SearchBar = ({ onSubmit }) => {
             type="text"
             autoComplete="off"
             autoFocus
-            placeholder="Search images and photos"
+            placeholder="Search images and photos..."
           />
-          <button type="submit">Search</button>
+          <button className={css.search_bar_button} type="submit">
+            Search
+          </button>
           <Toaster position="bottom-center" reverseOrder={false} />{' '}
         </form>
       </header>
