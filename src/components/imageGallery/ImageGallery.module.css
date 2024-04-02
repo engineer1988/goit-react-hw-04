@@ -1,0 +1,20 @@
+.image_gallery {
+  list-style-type: none;
+  display: flex;
+  flex-wrap: wrap;
+  column-gap: 24px;
+  row-gap: 24px;
+  padding: 32px 142px;
+}
+.image_gallery_item {
+  border: 1px solid rgb(128, 128, 128);
+  width: calc((100% - 48px) / 3);
+  width: 360px;
+  height: 200px;
+  transition: transform 250ms ease-in-out;
+  border-radius: 10px;
+  overflow: hidden;
+}
+.image_gallery_item:hover {
+  transform: scale(1.1);
+}

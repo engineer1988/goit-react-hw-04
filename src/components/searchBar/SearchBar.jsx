@@ -21,7 +21,6 @@ const SearchBar = ({ onSearch }) => {
       return;
     }
     onSearch(image);
-    // console.log(image);
     form.reset();
   };
 
@@ -40,7 +39,7 @@ const SearchBar = ({ onSearch }) => {
           <button className={css.search_bar_button} type="submit">
             Search
           </button>
-          <Toaster position="bottom-center" reverseOrder={false} />{' '}
+          <Toaster position="bottom-center" reverseOrder={false} />
         </form>
       </header>
     </>
