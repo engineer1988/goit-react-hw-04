@@ -11,7 +11,7 @@ const notify = () =>
     },
   });
 
-const SearchBar = ({ onSearch }) => {
+const SearchBar = ({ onSearch, setTopic }) => {
   const handleSubmit = evt => {
     evt.preventDefault();
     const form = evt.target;
@@ -21,6 +21,7 @@ const SearchBar = ({ onSearch }) => {
       return;
     }
     onSearch(image);
+    setTopic(image);
     form.reset();
   };
 
