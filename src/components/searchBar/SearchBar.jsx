@@ -11,17 +11,18 @@ const notify = () =>
     },
   });
 
-const SearchBar = ({ onSearch, setTopic }) => {
+const SearchBar = ({ onSearch, setQuery, setPage }) => {
   const handleSubmit = evt => {
     evt.preventDefault();
     const form = evt.target;
-    const image = form.elements.image.value;
+    const query = form.elements.image.value;
     if (form.elements.image.value.trim() === '') {
       notify();
       return;
     }
-    onSearch(image);
-    setTopic(image);
+    setQuery(query);
+    onSearch(query);
+    setPage(2);
     form.reset();
   };
 
