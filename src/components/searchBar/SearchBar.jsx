@@ -11,7 +11,7 @@ const notify = () =>
     },
   });
 
-const SearchBar = ({ onSearch, setQuery, setPage }) => {
+const SearchBar = ({ onSearch, onQuery, page, onPage }) => {
   const handleSubmit = evt => {
     evt.preventDefault();
     const form = evt.target;
@@ -20,9 +20,8 @@ const SearchBar = ({ onSearch, setQuery, setPage }) => {
       notify();
       return;
     }
-    setQuery(query);
-    onSearch(query);
-    setPage(2);
+    onQuery(query);
+    onSearch(query, page);
     form.reset();
   };
 
@@ -38,7 +37,11 @@ const SearchBar = ({ onSearch, setQuery, setPage }) => {
             autoFocus
             placeholder="Search images and photos..."
           />
-          <button className={css.search_bar_button} type="submit">
+          <button
+            onClick={() => onPage(1)}
+            className={css.search_bar_button}
+            type="submit"
+          >
             Search
           </button>
           <Toaster position="bottom-center" reverseOrder={false} />

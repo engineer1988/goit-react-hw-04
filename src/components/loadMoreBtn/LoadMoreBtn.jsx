@@ -1,12 +1,12 @@
 import css from './LoadMoreBtn.module.css';
 
-const LoadMoreBtn = ({ onLoad, onQuery, page, addPage }) => {
+const LoadMoreBtn = ({ onLoad, query, page, onAddPage }) => {
   return (
     <div className={css.loadMoreBtn_div}>
       <button
         onClick={() => {
-          addPage(page);
-          onLoad(onQuery, page);
+          onAddPage(page);
+          onLoad(query, page);
         }}
         className={css.loadMoreBtn}
       >
