@@ -7,7 +7,7 @@ import Loader from './loader/Loader';
 import toast from 'react-hot-toast';
 import { IoMdNotifications } from 'react-icons/io';
 import LoadMoreBtn from './loadMoreBtn/LoadMoreBtn';
-// import ImageModal from './imageModal/ImageModal';
+import ImageModal from './imageModal/ImageModal';
 
 const notify = () =>
   toast('Whoops, something went wrong! Please try reloading this page!', {
@@ -25,7 +25,22 @@ function App() {
   const [error, setError] = useState(false);
   const [page, setPage] = useState(1);
   const [query, setQuery] = useState('');
+  const [photoForModalWindow, setPhotoForModalWindow] = useState(null);
+  const [modalIsOpen, setIsOpen] = useState(false);
 
+  const clickPhoto = photo => {
+    setPhotoForModalWindow(photo);
+    setIsOpen(true);
+  };
+
+  function openModal() {
+    setIsOpen(true);
+  }
+
+  function closeModal() {
+    setPhotoForModalWindow(null);
+    setIsOpen(false);
+  }
   useEffect(() => {
     if (!query) return;
   }, [query, page]);
@@ -65,7 +80,13 @@ function App() {
       />
       {page === 1 && loading && <Loader />}
       {error && <ErrorMessage />}
-      {photos.length > 0 && <ImageGallery photos={photos} />}
+      {photos.length > 0 && (
+        <ImageGallery
+          photos={photos}
+          onOpenModal={openModal}
+          onClickPhoto={clickPhoto}
+        />
+      )}
       {page > 1 && loading && <Loader />}
       {photos.length > 0 && (
         <LoadMoreBtn
@@ -75,7 +96,11 @@ function App() {
           query={query}
         />
       )}
-      {/* <ImageModal /> */}
+      <ImageModal
+        isFoto={photoForModalWindow}
+        isOpen={modalIsOpen}
+        onRequestClose={closeModal}
+      />
     </div>
   );
 }

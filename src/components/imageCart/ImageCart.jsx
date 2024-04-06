@@ -1,11 +1,11 @@
 import css from './ImageCart.module.css';
 
-const ImageCart = ({ smallUrl, regularUrl, alt }) => {
+const ImageCart = ({ smallUrl, alt }) => {
   return (
     <>
-      <a href={regularUrl}>
+      <div>
         <img className={css.image_gallery_img} src={smallUrl} alt={alt} />
-      </a>
+      </div>
     </>
   );
 };
