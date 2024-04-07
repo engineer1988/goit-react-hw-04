@@ -19,3 +19,6 @@
   justify-content: center;
   margin-bottom: 10px;
 }
+.loadMoreBtn_div :hover {
+  background-color: green;
+}
