@@ -27,6 +27,8 @@ function App() {
   const [query, setQuery] = useState('');
   const [photoForModalWindow, setPhotoForModalWindow] = useState(null);
   const [modalIsOpen, setIsOpen] = useState(false);
+  const [totalPages, setTotalPages] = useState(0);
+  const [showBtn, setShowBtn] = useState(false);
 
   const clickPhoto = photo => {
     setPhotoForModalWindow(photo);
@@ -41,6 +43,11 @@ function App() {
     setPhotoForModalWindow(null);
     setIsOpen(false);
   }
+
+  useEffect(() => {
+    setShowBtn(totalPages && totalPages !== page - 1);
+  }, [totalPages, page]);
+
   useEffect(() => {
     if (!query) return;
   }, [query, page]);
@@ -60,6 +67,7 @@ function App() {
       setPhotos(prev => {
         return [...prev, ...resData.results];
       });
+      setTotalPages(resData.total_pages);
     } catch (error) {
       setError(true);
       notify();
@@ -88,7 +96,7 @@ function App() {
         />
       )}
       {page > 1 && loading && <Loader />}
-      {photos.length > 0 && (
+      {showBtn && (
         <LoadMoreBtn
           onAddPage={addPage}
           page={page}

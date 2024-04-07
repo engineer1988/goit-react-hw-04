@@ -16,7 +16,6 @@ const ImageGallery = ({ photos, onOpenModal, onClickPhoto }) => {
           >
             <ImageCart
               smallUrl={image.urls.small}
-              // regularUrl={image.urls.regular}
               alt={image.alt_description}
             />
           </li>
