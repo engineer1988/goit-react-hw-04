@@ -1,4 +1,4 @@
-import css from './ImageCart.module.css';
+import css from './ImageCard.module.css';
 
 const ImageCart = ({ smallUrl, alt }) => {
   return (

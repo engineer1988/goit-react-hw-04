@@ -1,4 +1,4 @@
-import ImageCart from '../imageCart/ImageCart';
+import ImageCard from '../imageCard/ImageCard';
 import css from './ImageGallery.module.css';
 
 const ImageGallery = ({ photos, onOpenModal, onClickPhoto }) => {
@@ -14,7 +14,7 @@ const ImageGallery = ({ photos, onOpenModal, onClickPhoto }) => {
               onClickPhoto(image.urls.regular);
             }}
           >
-            <ImageCart
+            <ImageCard
               smallUrl={image.urls.small}
               alt={image.alt_description}
             />
