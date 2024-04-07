@@ -30,14 +30,14 @@ function App() {
   const [totalPages, setTotalPages] = useState(0);
   const [showBtn, setShowBtn] = useState(false);
 
-  const clickPhoto = photo => {
-    setPhotoForModalWindow(photo);
+  const openModal = () => {
     setIsOpen(true);
   };
 
-  function openModal() {
-    setIsOpen(true);
-  }
+  const clickPhoto = photo => {
+    setPhotoForModalWindow(photo);
+    openModal();
+  };
 
   function closeModal() {
     setPhotoForModalWindow(null);
@@ -80,20 +80,11 @@ function App() {
   };
   return (
     <div>
-      <SearchBar
-        onSearch={loadImages}
-        onQuery={setQuery}
-        onPage={setPage}
-        page={page}
-      />
+      <SearchBar onSearch={loadImages} onQuery={setQuery} page={page} />
       {page === 1 && loading && <Loader />}
       {error && <ErrorMessage />}
       {photos.length > 0 && (
-        <ImageGallery
-          photos={photos}
-          onOpenModal={openModal}
-          onClickPhoto={clickPhoto}
-        />
+        <ImageGallery photos={photos} onClickPhoto={clickPhoto} />
       )}
       {page > 1 && loading && <Loader />}
       {showBtn && (
