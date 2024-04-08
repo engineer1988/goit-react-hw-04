@@ -30,8 +30,17 @@ function App() {
   const [totalPages, setTotalPages] = useState(0);
   const [showBtn, setShowBtn] = useState(false);
 
+  const addPage = () => {
+    setPage(page + 1);
+  };
+
   const openModal = () => {
     setIsOpen(true);
+  };
+
+  const closeModal = () => {
+    setPhotoForModalWindow(null);
+    setIsOpen(false);
   };
 
   const clickPhoto = photo => {
@@ -39,18 +48,14 @@ function App() {
     openModal();
   };
 
-  function closeModal() {
-    setPhotoForModalWindow(null);
-    setIsOpen(false);
-  }
-
   useEffect(() => {
+    if (!query) return;
+
     const loadImages = async () => {
       try {
         {
           page === 1 && setPhotos([]);
         }
-        setError(false);
         setLoading(true);
         const resData = await fetchPhotosWithLoadMore(query, page);
         setPhotos(prev => {
@@ -62,11 +67,14 @@ function App() {
         notify();
       } finally {
         setLoading(false);
-        setShowBtn(totalPages && totalPages !== page);
       }
     };
     loadImages();
-  }, [query, page, totalPages]);
+  }, [query, page]);
+
+  useEffect(() => {
+    setShowBtn(totalPages && totalPages !== page);
+  }, [page, totalPages]);
 
   return (
     <div>
@@ -77,7 +85,7 @@ function App() {
         <ImageGallery photos={photos} onClickPhoto={clickPhoto} />
       )}
       {page > 1 && loading && <Loader />}
-      {showBtn && <LoadMoreBtn page={page} setPage={setPage} />}
+      {showBtn && <LoadMoreBtn onAddPage={addPage} />}
       <ImageModal
         isFoto={photoForModalWindow}
         isOpen={modalIsOpen}

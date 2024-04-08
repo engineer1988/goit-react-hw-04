@@ -6,16 +6,12 @@ const ImageGallery = ({ photos, onClickPhoto }) => {
     <ul className={css.image_gallery}>
       {photos.map(image => {
         return (
-          <li
-            key={image.id}
-            className={css.image_gallery_item}
-            onClick={() => {
-              onClickPhoto(image.urls.regular);
-            }}
-          >
+          <li key={image.id} className={css.image_gallery_item}>
             <ImageCard
               smallUrl={image.urls.small}
+              regularUrl={image.urls.regular}
               alt={image.alt_description}
+              clickPhoto={onClickPhoto}
             />
           </li>
         );
