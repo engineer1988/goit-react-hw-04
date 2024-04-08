@@ -45,56 +45,39 @@ function App() {
   }
 
   useEffect(() => {
-    setShowBtn(totalPages && totalPages !== page - 1);
-  }, [totalPages, page]);
-
-  useEffect(() => {
-    if (!query) return;
-  }, [query, page]);
-
-  const addPage = page => {
-    setPage(page + 1);
-  };
-
-  const loadImages = async (query, page) => {
-    try {
-      {
-        page === 1 && setPhotos([]);
+    const loadImages = async () => {
+      try {
+        {
+          page === 1 && setPhotos([]);
+        }
+        setError(false);
+        setLoading(true);
+        const resData = await fetchPhotosWithLoadMore(query, page);
+        setPhotos(prev => {
+          return [...prev, ...resData.results];
+        });
+        setTotalPages(resData.total_pages);
+      } catch (error) {
+        setError(true);
+        notify();
+      } finally {
+        setLoading(false);
+        setShowBtn(totalPages && totalPages !== page);
       }
-      setError(false);
-      setLoading(true);
-      const resData = await fetchPhotosWithLoadMore(query, page);
-      setPhotos(prev => {
-        return [...prev, ...resData.results];
-      });
-      setTotalPages(resData.total_pages);
-    } catch (error) {
-      setError(true);
-      notify();
-    } finally {
-      setLoading(false);
-      if (page === 1) {
-        addPage(page);
-      }
-    }
-  };
+    };
+    loadImages();
+  }, [query, page, totalPages]);
+
   return (
     <div>
-      <SearchBar onSearch={loadImages} onQuery={setQuery} page={page} />
+      <SearchBar onQuery={setQuery} setPage={setPage} />
       {page === 1 && loading && <Loader />}
       {error && <ErrorMessage />}
       {photos.length > 0 && (
         <ImageGallery photos={photos} onClickPhoto={clickPhoto} />
       )}
       {page > 1 && loading && <Loader />}
-      {showBtn && (
-        <LoadMoreBtn
-          onAddPage={addPage}
-          page={page}
-          onLoad={loadImages}
-          query={query}
-        />
-      )}
+      {showBtn && <LoadMoreBtn page={page} setPage={setPage} />}
       <ImageModal
         isFoto={photoForModalWindow}
         isOpen={modalIsOpen}

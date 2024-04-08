@@ -11,7 +11,7 @@ const notify = () =>
     },
   });
 
-const SearchBar = ({ onSearch, onQuery }) => {
+const SearchBar = ({ onQuery, setPage }) => {
   const handleSubmit = evt => {
     evt.preventDefault();
     const form = evt.target;
@@ -21,7 +21,7 @@ const SearchBar = ({ onSearch, onQuery }) => {
       return;
     }
     onQuery(query);
-    onSearch(query, 1);
+    setPage(1);
     form.reset();
   };
 
